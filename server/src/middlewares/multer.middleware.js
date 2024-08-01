@@ -9,5 +9,29 @@ const storage= multer.diskStorage({
         cb(null, file.originalname) //file name defining
     }
 });
+const fileFilter = function (req, file, cb) {
+    const allowedImageTypes = ['image/jpeg', 'image/png'];
+    const allowedVideoTypes = ['video/mpeg', 'video/avi', 'video/mp4'];
 
-export const upload = multer({storage:storage});
+
+    console.log(file?.fieldname)
+    if(file.fieldname==="video"){
+        if (allowedVideoTypes.includes(file.mimetype)) {
+            cb(null, true); 
+        } else {
+            cb(new Error('Only MPG, AVI, and MP4 file formats are allowed for video!'), false); 
+        }
+    }else if(file.fieldname==="thumbnail"){
+        if (allowedImageTypes.includes(file.mimetype)) {
+            cb(null, true); 
+        } else {
+            cb(new Error('Only JPG, PNG file formats are allowed for thumbnail!'), false); 
+        }
+    }
+    
+};
+
+export const upload = multer({
+    storage: storage,
+    fileFilter: fileFilter
+});
