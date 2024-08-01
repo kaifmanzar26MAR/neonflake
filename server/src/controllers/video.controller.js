@@ -59,6 +59,49 @@ const uploadVideoData = asyncHandler(async(req,res)=>{
     return res.status(201).json(new ApiResponse(200, newVideo, "Video uploaded Successfully!!"));
 });
 
+const getAllVideoDataForInitialList= asyncHandler(async(req,res)=>{
+    const requiredData= await Video.aggregate([
+        {
+          '$project': {
+            '_id': 1, 
+            'title': 1, 
+            'thumbnailUrl': 1
+          }
+        }
+      ]);
+
+      if(!requiredData){
+        throw new ApiError(500, "Not found Data!!");
+      }
+
+      return res.status(201).json(new ApiResponse(200, requiredData, "Got the Video Data for Initial list!"))
+});
+
+function isValidObjectId(id) {
+    if (typeof id === 'string' && /^[0-9a-fA-F]{24}$/.test(id)) {
+        return true;
+    }
+    return false;
+}
+
+const getVideoDataById= asyncHandler(async(req,res)=>{
+    const {_id}=req.params;
+
+    if(_id.trim('')===''){
+        throw new ApiError(500, "Id is required!!");
+    }
+    if(!isValidObjectId(_id)){
+        throw new ApiError(500, "Given Id is not valid!!")
+    }
+
+    const videoData= await Video.findOne({_id:_id});
+
+    if(!videoData){
+        throw new ApiError(500, "No Data found!!");
+    }
 
 
-export {uploadVideoData}
+    return res.status(201).json(new ApiResponse(200, videoData, "Got the VideoData Successfully!!"));
+})
+
+export {uploadVideoData, getAllVideoDataForInitialList, getVideoDataById};

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { uploadVideoData } from "../controllers/video.controller.js";
+import { getAllVideoDataForInitialList, getVideoDataById, uploadVideoData } from "../controllers/video.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 
 const router= Router();
@@ -14,5 +14,7 @@ router.route('/uplaodvideo').post(upload.fields([
         maxCount:1,
     }
 ]), uploadVideoData);
+router.route('/videodataforinitiallist').get(getAllVideoDataForInitialList);
+router.route('/videodata/:_id').get(getVideoDataById);
 
 export default router;
