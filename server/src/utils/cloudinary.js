@@ -1,6 +1,10 @@
 import {v2 as cloudinary} from "cloudinary";
 import fs from "fs";
+import dotenv from 'dotenv';
 
+dotenv.config({
+    path:"server/.env"
+})
 cloudinary.config({
     cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
     api_key:process.env.CLOUDINARY_API_KEY,
@@ -9,12 +13,14 @@ cloudinary.config({
 
 const uploadOnCloudinary= async(localFilePath)=>{
     try {
+        console.log(process.env.CLOUDINARY_API_KEY, process.env.CLOUDINARY_API_SECRET, process.env.CLOUDINARY_CLOUD_NAME)
         if(!localFilePath){
             return null;
         }
 
         //code to upload file on cloudinary
-
+        console.log("uploading file...")
+        console.log("It will can take few minutes, please wait...")
         const response= await cloudinary.uploader.upload(localFilePath,{
             resource_type:"auto"
         });
