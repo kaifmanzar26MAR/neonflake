@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {toast} from 'react-toastify';
 
 const Home = () => {
@@ -51,10 +51,14 @@ const Home = () => {
             alert('All fields are requireds!!');
             return;
         }
-        if(formData.thumbnail==="" || formData.video==="" || (!formData?.thumbnail?.files[0] || !formData?.video?.files[0])){
+        if (
+            !formData.thumbnail ||
+            !formData.video 
+        ) {
             alert('Both files are required!!');
             return;
         }
+        
         setLoading(true);
         try {
             const response=await axios.post("http://localhost:5001/api/video/uplaodvideo",formData,
@@ -74,6 +78,11 @@ const Home = () => {
         } 
         setLoading(false);
     }
+    useEffect(()=>{
+        window.scroll({
+            top:0
+        })
+    },[])
     if(loading){
         return <div className='w-full h-screen bg-slate-300 bg-opacity-5 flex items-center justify-center'>
             <span className="loading loading-spinner text-primary"></span> 
@@ -138,7 +147,7 @@ const Home = () => {
                      <input type='file' name='video' className='hidden' onChange={(e)=>toggleVideo(e)}/>
                    </label>
                    
-                   <input type="submit" className='btn btn-ghost bg-gray-900 text-white' value="Upload" />
+                   <input type="submit" className='btn btn-ghost bg-gray-900 text-white w-full md:max-w-lg self-center' value="Upload" />
 
                </form>
             </div>

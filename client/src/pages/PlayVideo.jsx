@@ -21,6 +21,9 @@ const PlayVideo = () => {
     }
     
     useEffect(()=>{
+        window.scroll({
+            top:0
+        })
         fetchVideoData();
     },[])
 

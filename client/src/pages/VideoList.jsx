@@ -19,6 +19,9 @@ const VideoList = () => {
     }
 
     useEffect(()=>{
+        window.scroll({
+            top:0
+        })
         fecthViedeoData();
     },[])
     if(!videoListData){
@@ -28,7 +31,8 @@ const VideoList = () => {
     </div>
     }
   return (
-    <div className='w-full h-full flex flex-wrap gap-10 p-2 bg-lime-50 items-center justify-start'>
+    <div className='w-full h-full flex flex-wrap gap-10 p-2 bg-lime-50 items-center justify-center'>
+        <h1 className='w-full text-3xl font-medium'>List of ALL Videos</h1>
        {videoListData.map((ele)=>{
         return(
             <Link to={`/videolist/${ele._id}`} key={ele._id} className='w-full md:max-w-60'>
@@ -36,7 +40,7 @@ const VideoList = () => {
                     <div className='bg-slate-50 h-40 w-full p-2 rounded-sm overflow-hidden'>
                         <img src={ele.thumbnailUrl} alt="" className='w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500 overflow-hidden' />
                     </div>
-                    <h1>{ele.title}</h1>
+                    <h1 className='w-full truncate text-ellipsis p-2'>{ele.title}</h1>
                 </div>
             </Link>
         )
