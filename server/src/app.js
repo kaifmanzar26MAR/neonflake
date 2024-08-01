@@ -10,12 +10,26 @@ import videoRouter from "./routes/video.routes.js";
 
 const app= express();
 app.use(bodyParser.json());
-app.use(
-    cors({
-        origin:'https://neonflake-2wu9.onrender.com',
-        credentials:true
-    })
-);
+// app.use(
+//     cors({
+//         origin:'https://neonflake-2wu9.onrender.com',
+//         credentials:true
+//     })
+// );
+
+const allowedOrigins = ['https://neonflake-2wu9.onrender.com', 'https://66aba13eab8c740d061f6117--soft-bavarois-f74c66.netlify.app', 'http://localhost:5173'];
+
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+};
+
+app.use(cors(corsOptions));
 
 const __dirname= path.resolve();  //for hosting purspose only
 
