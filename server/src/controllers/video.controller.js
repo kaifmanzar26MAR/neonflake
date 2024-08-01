@@ -10,7 +10,7 @@ function validateString(input) {
 }
 const uploadVideoData = asyncHandler(async(req,res)=>{
     const {title, description}=req.body;
-
+    console.log("DATA ", req.body)
     if([title, description].some((field)=> field?.trim('')==='')){
         throw new ApiError(500, "Title and Desription are required!!");
     }
@@ -27,12 +27,12 @@ const uploadVideoData = asyncHandler(async(req,res)=>{
         throw new ApiError(500, "Title lenght exceeds the limit!!");
     }
 
-    console.log(title, description)
+    console.log("hi", title, description)
 
     const thumbnailLocalPath= req.files?.thumbnail[0]?.path;
     const videoLocalPath= req.files?.video[0]?.path;
 
-    console.log(thumbnailLocalPath, videoLocalPath)
+    console.log( "path ",thumbnailLocalPath, videoLocalPath)
 
     if(!thumbnailLocalPath || !videoLocalPath){
         throw new ApiError(500, "Can't get the path for thumbnail or video")
