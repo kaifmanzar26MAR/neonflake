@@ -61,7 +61,7 @@ const Home = () => {
         
         setLoading(true);
         try {
-            const response=await axios.post("http://localhost:5001/api/video/uplaodvideo",formData,
+            const response=await axios.post("https://neonflake-2wu9.onrender.com/api/video/uplaodvideo",formData,
                 {
                     headers: {
                 'Content-Type': 'multipart/form-data'

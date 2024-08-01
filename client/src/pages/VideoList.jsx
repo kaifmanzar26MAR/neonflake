@@ -7,7 +7,7 @@ const VideoList = () => {
     const [videoListData, setVideoListData]=useState(null)
     const fecthViedeoData=async()=>{
         try {
-            const response= await axios.get("http://localhost:5001/api/video/videodataforinitiallist");
+            const response= await axios.get("https://neonflake-2wu9.onrender.com/api/video/videodataforinitiallist");
             if(!response){
                 throw new Error("Something went wrong in getting response!!");
             }

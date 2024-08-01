@@ -9,7 +9,7 @@ const PlayVideo = () => {
 
     const fetchVideoData=async()=>{
         try {
-            const response= await axios.get(`http://localhost:5001/api/video/videodata/${_id}`);
+            const response= await axios.get(`https://neonflake-2wu9.onrender.com/api/video/videodata/${_id}`);
             if(!response){
                 throw new Error("not got the response!!");
             }
